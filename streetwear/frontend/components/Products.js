@@ -1,9 +1,9 @@
 import { useQuery } from "@apollo/client";
 import ggl from "graphql-tag";
 import styled from "styled-components";
-import Product from "../components/SingleProduct";
+import Product from "./Product";
 
-const ALL_PRODUCTS_QUERY = ggl`
+export const ALL_PRODUCTS_QUERY = ggl`
 query ALL_PRODUCTS_QUERY{
   allProducts{
     id

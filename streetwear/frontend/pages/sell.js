@@ -1,5 +1,11 @@
-const sell = () => {
-  return <div>sell</div>;
+import CreateProduct from "../components/CreateProduct";
+
+const SellPage = () => {
+  return (
+    <div>
+      <CreateProduct />
+    </div>
+  );
 };
 
-export default sell;
+export default SellPage;

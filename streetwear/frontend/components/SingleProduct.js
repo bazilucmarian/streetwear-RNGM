@@ -1,25 +1,63 @@
-import ProductStyles from "../styles/ProductStyles";
-import Title from "../styles/Title";
-import PriceTag from "../styles/PriceTag";
-import { formatMoney } from "../lib/formatMoney";
-import Link from "next/link";
+import gql from "graphql-tag";
+import DisplayError from "../components/ErrorMessage";
+import { useQuery } from "@apollo/client";
+import Head from "next/head";
+import styled from "styled-components";
 
-const SingleProduct = ({ product }) => {
-  console.log(product);
+const ProductStyles = styled.div`
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  min-height: 800px;
+  max-width: var(--maxWidth);
+  justify-content: center;
+  align-items: top;
+  gap: 2rem;
+  img {
+    width: 100%;
+    /* height: 100%; */
+    object-fit: contain;
+  }
+`;
+
+const SINGLE_ITEM_QUERY = gql`
+  query SINGLE_ITEM_QUERY($id: ID!) {
+    Product(where: { id: $id }) {
+      name
+      price
+      description
+      id
+      photo {
+        image {
+          publicUrlTransformed
+        }
+      }
+    }
+  }
+`;
+
+const DisplaySingleProduct = ({ id }) => {
+  const { data, loading, error } = useQuery(SINGLE_ITEM_QUERY, {
+    variables: { id },
+  });
+  if (loading) return <p>Loading ... </p>;
+  if (error) return <DisplayError error={error} />;
+
   return (
     <ProductStyles>
+      <Head>
+        <title>Streetwear | {data.Product.name}</title>
+      </Head>
       <img
-        src={product?.photo?.image?.publicUrlTransformed}
-        alt={product.name}
+        src={data.Product.photo.image.publicUrlTransformed}
+        alt={data.Product.name}
       />
-      <Title>
-        <Link href={`/product/${product.id}`}>{product.name}</Link>
-      </Title>
-      <PriceTag>{formatMoney(product.price)}</PriceTag>
-      <p>{product.description}</p>
-      {/* TODO : Add buttons to edit and delete item */}
+      <div className="details">
+        <h2>{data.Product.name}</h2>
+        <p>{data.Product.description}</p>
+      </div>
     </ProductStyles>
   );
 };
 
-export default SingleProduct;
+export default DisplaySingleProduct;
