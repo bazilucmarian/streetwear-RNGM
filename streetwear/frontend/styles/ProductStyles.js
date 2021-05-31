@@ -22,9 +22,10 @@ const Item = styled.div`
   }
   .buttonList {
     display: grid;
+
     width: 100%;
     border-top: 1px solid var(--lightGray);
-    grid-template-columns: repeat(autoFit, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-gap: 1px;
     background: var(--lightGray);
 

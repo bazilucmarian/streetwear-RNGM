@@ -1,10 +1,10 @@
-import { useMutation } from "@apollo/client";
-import gql from "graphql-tag";
-import { useForm } from "../customHooks/Form";
-import Form from "../styles/Form";
-import DisplayError from "../components/ErrorMessage";
-import { ALL_PRODUCTS_QUERY } from "../components/Products";
-import { useRouter } from "next/Router";
+import { useMutation } from '@apollo/client';
+import gql from 'graphql-tag';
+import { useForm } from '../customHooks/Form';
+import Form from '../styles/Form';
+import DisplayError from '../components/ErrorMessage';
+import { ALL_PRODUCTS_QUERY } from '../components/Products';
+import { useRouter } from 'next/Router';
 
 const CREATE_PRODUCT_MUTATION = gql`
   mutation CREATE_PRODUCT_MUTATION(
@@ -32,15 +32,13 @@ const CREATE_PRODUCT_MUTATION = gql`
 `;
 
 const CreateProduct = () => {
-  // const [name, setName] = useState("Marian");
-  // const [Price, setPrice] = useState(200);
   const router = useRouter();
 
   const { inputs, handleChange, resetForm, clearForm } = useForm({
-    name: "Nice Shoes",
-    price: "34234",
-    description: "These are the best shoes!",
-    image: "",
+    name: 'Nice Shoes',
+    price: '34234',
+    description: 'These are the best shoes!',
+    image: '',
   });
 
   const [createProduct, { loading, error, data }] = useMutation(
@@ -48,6 +46,7 @@ const CreateProduct = () => {
     {
       variables: inputs,
       refetchQueries: [{ query: ALL_PRODUCTS_QUERY }],
+      // awaitRefetchQueries: true,
     }
   );
 

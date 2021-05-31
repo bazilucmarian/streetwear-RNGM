@@ -1,11 +1,12 @@
-import ProductStyles from "../styles/ProductStyles";
-import Title from "../styles/Title";
-import PriceTag from "../styles/PriceTag";
-import { formatMoney } from "../lib/formatMoney";
-import Link from "next/link";
+import ProductStyles from '../styles/ProductStyles';
+import DeleteProduct from '../components/DeleteProduct';
+import Title from '../styles/Title';
+import PriceTag from '../styles/PriceTag';
+import { formatMoney } from '../lib/formatMoney';
+import Link from 'next/link';
+import AddToCart from './AddToCart';
 
 const Product = ({ product }) => {
-  console.log(product);
   return (
     <ProductStyles>
       <img
@@ -17,7 +18,20 @@ const Product = ({ product }) => {
       </Title>
       <PriceTag>{formatMoney(product.price)}</PriceTag>
       <p>{product.description}</p>
-      {/* TODO : Add buttons to edit and delete item */}
+      <div className="buttonList">
+        <Link
+          href={{
+            pathname: '/update',
+            query: {
+              id: product.id,
+            },
+          }}
+        >
+          Edit ✏️
+        </Link>
+        <AddToCart id={product.id} />
+        <DeleteProduct id={product.id}>Delete</DeleteProduct>
+      </div>
     </ProductStyles>
   );
 };

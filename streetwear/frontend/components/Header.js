@@ -1,6 +1,9 @@
-import styled from "styled-components";
-import Link from "next/link";
-import Nav from "./Nav";
+import styled from 'styled-components';
+import Link from 'next/link';
+import Nav from './Nav';
+import Cart from './Cart';
+import Search from './Search';
+import { useUser } from './User';
 
 const Logo = styled.h1`
   background-color: red;
@@ -31,18 +34,22 @@ const HeaderStyles = styled.header`
   }
 `;
 
-const Header = () => (
-  <HeaderStyles>
-    <div className="bar">
-      <Logo>
-        <Link href="/">StreetWear</Link>
-      </Logo>
-      <Nav />
-    </div>
-    <div className="sub-bar">
-      <p>Search</p>
-    </div>
-  </HeaderStyles>
-);
+const Header = () => {
+  const me = useUser();
+  console.log(me);
+
+  return (
+    <HeaderStyles>
+      <div className="bar">
+        <Logo>
+          <Link href="/">StreetWear</Link>
+        </Logo>
+        <Nav />
+      </div>
+      <div className="sub-bar">{me && <Search />}</div>
+      <Cart />
+    </HeaderStyles>
+  );
+};
 
 export default Header;
