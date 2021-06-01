@@ -1,4 +1,4 @@
-import { PAGINATION_QUERY } from '../components/Pagination';
+import { PAGINATION_QUERY } from '../graphql/queries';
 export default function paginationField() {
   return {
     keyArgs: false, // tells apollo we will take care of everything

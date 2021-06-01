@@ -1,39 +1,10 @@
-import gql from "graphql-tag";
-import { useQuery, useMutation } from "@apollo/client";
-import Form from "../styles/Form";
-import DisplayError from "../components/ErrorMessage";
-import { useForm } from "../customHooks/Form";
-import { useRouter } from "next/router";
-
-const SINGLE_PRODUCT_QUERY = gql`
-  query SINGLE_PRODUCT_QUERY($id: ID!) {
-    Product(where: { id: $id }) {
-      id
-      name
-      description
-      price
-    }
-  }
-`;
-
-const UPDATE_PRODUCT_MUTATION = gql`
-  mutation UPDATE_PRODUCT_MUTATION(
-    $id: ID!
-    $name: String
-    $description: String
-    $price: Int
-  ) {
-    updateProduct(
-      id: $id
-      data: { name: $name, description: $description, price: $price }
-    ) {
-      id
-      name
-      description
-      price
-    }
-  }
-`;
+import { useQuery, useMutation } from '@apollo/client';
+import { SINGLE_PRODUCT_QUERY } from '../graphql/queries';
+import { UPDATE_PRODUCT_MUTATION } from '../graphql/mutations';
+import Form from '../styles/Form';
+import DisplayError from '../components/ErrorMessage';
+import { useForm } from '../customHooks/Form';
+import { useRouter } from 'next/router';
 
 const UpdateProduct = ({ id }) => {
   const router = useRouter();

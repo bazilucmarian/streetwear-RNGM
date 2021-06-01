@@ -36,7 +36,6 @@ const HeaderStyles = styled.header`
 
 const Header = () => {
   const me = useUser();
-  console.log(me);
 
   return (
     <HeaderStyles>

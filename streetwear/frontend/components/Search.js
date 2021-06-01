@@ -4,31 +4,10 @@ import {
   SearchDropDownItem,
 } from '../styles/SearchStyles';
 import { resetIdCounter, useCombobox } from 'downshift';
-import gql from 'graphql-tag';
 import { useLazyQuery } from '@apollo/client';
+import { SEARCH_PRODUCTS_QUERY } from '../graphql/queries';
 import debounce from 'lodash.debounce';
 import { useRouter } from 'next/router';
-
-const SEARCH_PRODUCTS_QUERY = gql`
-  query SEARCH_PRODUCTS_QUERY($searchTerm: String!) {
-    searchTerms: allProducts(
-      where: {
-        OR: [
-          { name_contains_i: $searchTerm }
-          { description_contains_i: $searchTerm }
-        ]
-      }
-    ) {
-      id
-      name
-      photo {
-        image {
-          publicUrlTransformed
-        }
-      }
-    }
-  }
-`;
 
 const Search = () => {
   const router = useRouter();

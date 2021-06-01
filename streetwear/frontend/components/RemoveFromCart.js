@@ -1,14 +1,6 @@
 import { RemoveFromCartButton } from '../styles/CartStyles';
-import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
-
-const REMOVE_FROM_CART_MUTATION = gql`
-  mutation REMOVE_FROM_CART_MUTATION($id: ID!) {
-    deleteCartItem(id: $id) {
-      id
-    }
-  }
-`;
+import { REMOVE_FROM_CART_MUTATION } from '../graphql/mutations';
 
 const update = (cache, payload) => {
   cache.evict(cache.identify(payload.data.deleteCartItem));

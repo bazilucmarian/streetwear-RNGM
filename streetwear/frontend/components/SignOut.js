@@ -1,12 +1,6 @@
 import { useMutation } from '@apollo/client';
-import gql from 'graphql-tag';
-import { CURRENT_USER_QUERY } from './User';
-
-const SIGN_OUT_MUTATION = gql`
-  mutation {
-    endSession
-  }
-`;
+import { SIGN_OUT_MUTATION } from '../graphql/mutations';
+import { CURRENT_USER_QUERY } from '../graphql/queries';
 
 const SignOut = () => {
   const [signout] = useMutation(SIGN_OUT_MUTATION, {

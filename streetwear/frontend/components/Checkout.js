@@ -1,6 +1,4 @@
 import { useState, useContext } from 'react';
-import gql from 'graphql-tag';
-import { CURRENT_USER_QUERY } from './User';
 import { LocalStateContext } from '../context/cartState';
 import { useMutation } from '@apollo/client';
 import {
@@ -16,22 +14,10 @@ import {
 } from '@stripe/react-stripe-js';
 import Nprogress from 'nprogress';
 import { useRouter } from 'next/router';
+import { CREATE_ORDER_MUTATION } from '../graphql/mutations';
+import { CURRENT_USER_QUERY } from '../graphql/queries';
 
 const stripeLib = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
-
-const CREATE_ORDER_MUTATION = gql`
-  mutation CREATE_ORDER_MUTATION($token: String!) {
-    checkout(token: $token) {
-      id
-      charge
-      total
-      items {
-        id
-        name
-      }
-    }
-  }
-`;
 
 const CheckoutForm = () => {
   const [error, setError] = useState('');

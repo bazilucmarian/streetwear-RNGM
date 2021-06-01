@@ -1,34 +1,16 @@
-import { useMutation } from "@apollo/client";
-import gql from "graphql-tag";
-import { useForm } from "../customHooks/Form";
-import Form from "../styles/Form";
-import { CURRENT_USER_QUERY } from "../components/User";
-import DisplayError from "./ErrorMessage";
-import { useRouter } from "next/router";
-
-const SIGNIN_MUTATION = gql`
-  mutation SIGNIN_MUTATION($email: String!, $password: String!) {
-    authenticateUserWithPassword(email: $email, password: $password) {
-      ... on UserAuthenticationWithPasswordSuccess {
-        item {
-          id
-          email
-          name
-        }
-      }
-      ... on UserAuthenticationWithPasswordFailure {
-        code
-        message
-      }
-    }
-  }
-`;
+import { useMutation } from '@apollo/client';
+import { SIGNIN_MUTATION } from '../graphql/mutations';
+import { CURRENT_USER_QUERY } from '../graphql/queries';
+import { useForm } from '../customHooks/Form';
+import Form from '../styles/Form';
+import DisplayError from './ErrorMessage';
+import { useRouter } from 'next/router';
 
 const SignIn = () => {
   const router = useRouter();
   const { inputs, handleChange, resetForm } = useForm({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const [signin, { data, loading }] = useMutation(SIGNIN_MUTATION, {
@@ -42,14 +24,14 @@ const SignIn = () => {
     // send the email and password to graph ql api
     await signin();
     resetForm();
-    router.push("/products");
+    router.push('/products');
   };
 
   const error =
     data?.authenticateUserWithPassword.__typename ===
-    "UserAuthenticationWithPasswordFailure"
+    'UserAuthenticationWithPasswordFailure'
       ? data?.authenticateUserWithPassword
-      : "";
+      : '';
   return (
     <Form method="POST" onSubmit={handleSubmit}>
       <h2>Sign into your account ! 🙏</h2>

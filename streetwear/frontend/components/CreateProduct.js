@@ -1,35 +1,10 @@
 import { useMutation } from '@apollo/client';
-import gql from 'graphql-tag';
+import { CREATE_PRODUCT_MUTATION } from '../graphql/mutations';
+import { ALL_PRODUCTS_QUERY } from '../graphql/queries';
 import { useForm } from '../customHooks/Form';
 import Form from '../styles/Form';
 import DisplayError from '../components/ErrorMessage';
-import { ALL_PRODUCTS_QUERY } from '../components/Products';
 import { useRouter } from 'next/Router';
-
-const CREATE_PRODUCT_MUTATION = gql`
-  mutation CREATE_PRODUCT_MUTATION(
-    # Which variables are getting passed in? And What types are they
-    $name: String!
-    $description: String!
-    $price: Int!
-    $image: Upload
-  ) {
-    createProduct(
-      data: {
-        name: $name
-        description: $description
-        price: $price
-        status: "AVAILABLE"
-        photo: { create: { image: $image, altText: $name } }
-      }
-    ) {
-      id
-      price
-      description
-      name
-    }
-  }
-`;
 
 const CreateProduct = () => {
   const router = useRouter();

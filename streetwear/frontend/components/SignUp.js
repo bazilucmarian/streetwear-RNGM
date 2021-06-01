@@ -1,31 +1,17 @@
-import { useMutation } from "@apollo/client";
-import gql from "graphql-tag";
-import { useForm } from "../customHooks/Form";
-import Form from "../styles/Form";
-import { CURRENT_USER_QUERY } from "../components/User";
-import DisplayError from "./ErrorMessage";
-import { useRouter } from "next/router";
-
-const SIGNUP_MUTATION = gql`
-  mutation SIGNUP_MUTATION(
-    $email: String!
-    $name: String!
-    $password: String!
-  ) {
-    createUser(data: { email: $email, name: $name, password: $password }) {
-      id
-      name
-      email
-    }
-  }
-`;
+import { useMutation } from '@apollo/client';
+import { SIGNUP_MUTATION } from '../graphql/mutations';
+import { CURRENT_USER_QUERY } from '../graphql/queries';
+import { useForm } from '../customHooks/Form';
+import Form from '../styles/Form';
+import DisplayError from './ErrorMessage';
+import { useRouter } from 'next/router';
 
 const SignUp = () => {
   const router = useRouter();
   const { inputs, handleChange, resetForm } = useForm({
-    email: "",
-    name: "",
-    password: "",
+    email: '',
+    name: '',
+    password: '',
   });
 
   const [signup, { data, loading, error }] = useMutation(SIGNUP_MUTATION, {

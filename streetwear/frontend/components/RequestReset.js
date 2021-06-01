@@ -1,19 +1,10 @@
 import { useMutation } from '@apollo/client';
-import gql from 'graphql-tag';
 import { useForm } from '../customHooks/Form';
 import Form from '../styles/Form';
-import { CURRENT_USER_QUERY } from './User';
+import { CURRENT_USER_QUERY } from '../graphql/queries';
+import { REQUEST_RESET_MUTATION } from '../graphql/mutations';
 import DisplayError from './ErrorMessage';
 import { useRouter } from 'next/router';
-
-const REQUEST_REST_MUTATION = gql`
-  mutation SIGNUP_MUTATION($email: String!) {
-    sendUserPasswordResetLink(email: $email) {
-      code
-      message
-    }
-  }
-`;
 
 const RequestReset = () => {
   const router = useRouter();
@@ -22,7 +13,7 @@ const RequestReset = () => {
   });
 
   const [signup, { data, loading, error }] = useMutation(
-    REQUEST_REST_MUTATION,
+    REQUEST_RESET_MUTATION,
     {
       variables: inputs,
       // referth the currently logged in user

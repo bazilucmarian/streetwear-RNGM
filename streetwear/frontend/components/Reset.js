@@ -1,33 +1,15 @@
-import { useMutation } from "@apollo/client";
-import gql from "graphql-tag";
-import { useForm } from "../customHooks/Form";
-import Form from "../styles/Form";
-import { CURRENT_USER_QUERY } from "./User";
-import DisplayError from "./ErrorMessage";
-import { useRouter } from "next/router";
-
-const RESET_MUTATION = gql`
-  mutation RESET_MUTATION(
-    $email: String!
-    $password: String!
-    $token: String!
-  ) {
-    redeemUserPasswordResetToken(
-      email: $email
-      token: $token
-      password: $password
-    ) {
-      code
-      message
-    }
-  }
-`;
+import { useMutation } from '@apollo/client';
+import { useForm } from '../customHooks/Form';
+import Form from '../styles/Form';
+import { RESET_MUTATION } from '../graphql/mutations';
+import DisplayError from './ErrorMessage';
+import { useRouter } from 'next/router';
 
 const Reset = ({ token }) => {
   const router = useRouter();
   const { inputs, handleChange, resetForm } = useForm({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
     token,
   });
 
@@ -46,7 +28,7 @@ const Reset = ({ token }) => {
 
   const successfulerror = data?.redeemUserPasswordResetToken?.code
     ? data?.redeemUserPasswordResetToken
-    : "";
+    : '';
 
   return (
     <Form method="POST" onSubmit={handleSubmit}>

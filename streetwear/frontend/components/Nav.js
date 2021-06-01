@@ -7,9 +7,6 @@ import { useUser } from './User';
 import CartCount from './CartCount';
 
 const Nav = () => {
-  {
-    process.env.NEXT_PUBLIC_STRIPE_KEY;
-  }
   const user = useUser();
 
   const { toggleCart } = useContext(LocalStateContext);

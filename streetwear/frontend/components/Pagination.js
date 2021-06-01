@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useQuery } from '@apollo/client';
-import gql from 'graphql-tag';
+import { PAGINATION_QUERY } from '../graphql/queries';
 import { PaginationStyles } from '../styles/PaginationStyles';
 import { perPage } from '../config';
 import { useRouter } from 'next/router';
@@ -12,14 +12,6 @@ import { useRouter } from 'next/router';
 // (ex: http://localhost:7777/products?page=1 or http://localhost:7777/products/1)
 // 3.Filter the products for the current page
 // 4.Deal with cache invalidation
-
-export const PAGINATION_QUERY = gql`
-  query PAGINATION_QUERY {
-    _allProductsMeta {
-      count
-    }
-  }
-`;
 
 const Pagination = ({ page }) => {
   const router = useRouter();

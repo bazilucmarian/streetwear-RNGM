@@ -1,16 +1,8 @@
 import { useMutation } from '@apollo/client';
-import gql from 'graphql-tag';
-import { CURRENT_USER_QUERY } from './User';
+import { ADD_TO_CART_MUTATION } from '../graphql/mutations';
+import { CURRENT_USER_QUERY } from '../graphql/queries';
 import { useContext } from 'react';
 import { LocalStateContext } from '../context/cartState';
-
-const ADD_TO_CART_MUTATION = gql`
-  mutation ADD_TO_CART_MUTATION($id: ID!) {
-    addToCart(productID: $id) {
-      id
-    }
-  }
-`;
 
 const AddToCart = ({ id }) => {
   const { toggleCart } = useContext(LocalStateContext);

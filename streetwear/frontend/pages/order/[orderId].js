@@ -1,34 +1,9 @@
 import { useQuery } from '@apollo/client';
-import gql from 'graphql-tag';
+import { SINGLE_ORDER_QUERY } from '../../graphql/queries';
 import DisplayError from '../../components/ErrorMessage';
 import { OrderStyles } from '../../styles/OrderStyles';
 import { formatMoney } from '../../lib/formatMoney';
 import Head from 'next/head';
-
-const SINGLE_ORDER_QUERY = gql`
-  query SINGLE_ORDER_QUERY($id: ID!) {
-    order: Order(where: { id: $id }) {
-      id
-      charge
-      total
-      user {
-        id
-      }
-      items {
-        id
-        name
-        description
-        price
-        quantity
-        photo {
-          image {
-            publicUrlTransformed
-          }
-        }
-      }
-    }
-  }
-`;
 
 const SingleOrderPage = ({ query }) => {
   const { orderId } = query;
